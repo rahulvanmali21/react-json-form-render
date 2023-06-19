@@ -1,6 +1,7 @@
 import React, { SyntheticEvent } from "react";
 import { FormConfig } from "../Form";
 import useForm from "../hooks/use-form";
+import { SelectFeild, TextFeild } from "./FormInput";
 
 type Props = {
   formConfig: FormConfig;
@@ -8,8 +9,7 @@ type Props = {
 };
 
 const FormRender = ({ formConfig, onSubmit }: Props) => {
-
-  const { values } = useForm({
+  const { values,handleChange } = useForm({
     formConfig,
   });
 
@@ -21,23 +21,37 @@ const FormRender = ({ formConfig, onSubmit }: Props) => {
   return (
     <>
       <form onSubmit={onSubmitHandler}>
-        {formConfig.map((formInput, index: numnber) => {
-            const {type ,name,label,placeholder} = formInput
+        {formConfig.map((formInput, index: number) => {
+          const { type, name, label, placeholder, defaultValue, options } =
+            formInput;
           if (type === "select") {
             return (
-              <div>
-                <label htmlFor={name}>{label}</label>
-                <select name={name} id={name}></select>
-              </div>
+              <SelectFeild
+                key={name}
+                name={name}
+                label={label}
+                defaultValue={defaultValue}
+                type={placeholder}
+                options={options}
+                value={values[name]}
+                onChange={(e:any)=>handleChange(name,e.target.value)}
+              />
             );
           }
           return (
-            <div>
-                <label htmlFor={name}>{label}</label>
-                <input placeholder={placeholder} name={name} id={name} type={type}/>
-              </div>
-          )
+            <TextFeild
+              key={name}
+              name={name}
+              label={label}
+              defaultValue={defaultValue}
+              placeholder={placeholder}
+              type={type}
+              value={values[name]}
+              onChange={(e:any)=>handleChange(name,e.target.value)}
+            />
+          );
         })}
+        <button type="submit">Submit</button>
       </form>
     </>
   );

@@ -23,6 +23,10 @@ type HTMLInputType =
   | "select"
   | "week";
 
+
+
+
+  
 export interface FormInput {
   label: string;
   name:string
@@ -30,6 +34,7 @@ export interface FormInput {
   value?: string | number;
   defaultValue?: string | number;
   placeholder?: string;
+  options?:any[]
 }
 
 export type FormConfig = Array<FormInput>

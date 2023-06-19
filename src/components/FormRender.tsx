@@ -21,7 +21,7 @@ const FormRender = ({ formConfig, onSubmit }: Props) => {
   return (
     <>
       <form onSubmit={onSubmitHandler}>
-        {formConfig.map((formInput, index: number) => {
+        {formConfig.map((formInput) => {
           const { type, name, label, placeholder, defaultValue, options } =
             formInput;
           if (type === "select") {

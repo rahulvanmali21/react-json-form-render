@@ -14,8 +14,16 @@ const getVaribles = (formConfig: FormConfig) => {
 };
 const useForm = (arg: Arg) => {
   const [formValues, setFormValues] = useState(getVaribles(arg.formConfig));
+
+  const handleChange = (feildName: string, value?: string | number) => {
+    if (feildName in formValues) {
+      setFormValues((prevState: any) => ({ ...prevState, [feildName]: value }));
+    }
+  };
+
   return {
     values: formValues,
+    handleChange,
   };
   //
 };

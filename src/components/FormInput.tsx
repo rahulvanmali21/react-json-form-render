@@ -1,8 +1,19 @@
-import { useId } from "react";
+import React, { useId } from "react";
+import { FormInput } from "../Form";
 
-export const TextFeild = (props: any) => {
+type Props = {
+  formInput: FormInput;
+  value?: string | number | null;
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
+};
+
+export const TextFeild = (props: Props) => {
   const id = useId();
-  const { name, label, defaultValue, placeholder, type, onChange,value } = props;
+  const { name, label, defaultValue, placeholder, type, value, validation } =
+    props.formInput;
+  const { onChange } = props;
 
   return (
     <div>
@@ -14,20 +25,30 @@ export const TextFeild = (props: any) => {
         type={type}
         value={value}
         onChange={onChange}
+        {...validation}
       />
     </div>
   );
 };
 
-export const SelectFeild = (props: any) => {
-  const { name, label, defaultValue, options = [], onChange,value } = props;
+export const SelectFeild = (props: Props) => {
+  const { name, label, defaultValue, value, validation, options } =
+    props.formInput;
+  const { onChange } = props;
   const id = useId();
   return (
     <div>
       <label htmlFor={id}>{label}</label>
-      <select value={value} name={name} id={id} onChange={onChange} defaultValue={defaultValue}>
-        {options.map((option: any, index: number) => (
-          <option value={option} key={index} >
+      <select
+        value={value}
+        name={name}
+        id={id}
+        onChange={onChange}
+        defaultValue={defaultValue}
+        {...validation}
+      >
+        {options?.map((option: any, index: number) => (
+          <option value={option} key={index}>
             {option}
           </option>
         ))}

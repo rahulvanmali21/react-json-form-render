@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from "react";
-import { FormConfig } from "../Form";
+import { FormConfig, FormInput } from "../Form";
 import useForm from "../hooks/use-form";
 import { SelectFeild, TextFeild } from "./FormInput";
 
@@ -9,7 +9,7 @@ type Props = {
 };
 
 const FormRender = ({ formConfig, onSubmit }: Props) => {
-  const { values,handleChange } = useForm({
+  const { values, handleChange } = useForm({
     formConfig,
   });
 
@@ -18,36 +18,31 @@ const FormRender = ({ formConfig, onSubmit }: Props) => {
     onSubmit?.(values);
   };
 
+  const changeHandler = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    handleChange(event.target.name, event.target.value);
+  };
+
   return (
     <>
       <form onSubmit={onSubmitHandler}>
-        {formConfig.map((formInput) => {
-          const { type, name, label, placeholder, defaultValue, options } =
-            formInput;
+        {formConfig.map((formInput: FormInput) => {
+          const { type, name } = formInput;
           if (type === "select") {
             return (
               <SelectFeild
-                key={name}
-                name={name}
-                label={label}
-                defaultValue={defaultValue}
-                type={placeholder}
-                options={options}
+                formInput={formInput}
                 value={values[name]}
-                onChange={(e:any)=>handleChange(name,e.target.value)}
+                onChange={changeHandler}
               />
             );
           }
           return (
             <TextFeild
-              key={name}
-              name={name}
-              label={label}
-              defaultValue={defaultValue}
-              placeholder={placeholder}
-              type={type}
+              formInput={formInput}
               value={values[name]}
-              onChange={(e:any)=>handleChange(name,e.target.value)}
+              onChange={changeHandler}
             />
           );
         })}

@@ -8,6 +8,9 @@ const formConfig: FormConfig = [
     label: "Username",
     type: "text",
     defaultValue: "rahul",
+    validation:{
+      required:true
+    }
   },
   {
     name: "email",

@@ -23,9 +23,12 @@ type HTMLInputType =
   | "select"
   | "week";
 
-
-
-
+type Validation ={
+  required?:boolean,
+  max?:number,
+  min?:number,
+  pattern?:string,
+}
   
 export interface FormInput {
   label: string;
@@ -35,6 +38,7 @@ export interface FormInput {
   defaultValue?: string | number;
   placeholder?: string;
   options?:any[]
+  validation?:Validation
 }
 
 export type FormConfig = Array<FormInput>

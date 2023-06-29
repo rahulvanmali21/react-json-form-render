@@ -18,10 +18,20 @@ const formConfig: FormConfig = [
     type: "email",
   },
   {
+    name: "mobile",
+    label: "Mobile No.",
+    type: "tel",
+  },
+  {
     name: "gender",
     label: "Gender",
     type: "select",
     options:["male","female"]
+  },
+  {
+    name: "send notifications",
+    label: "enable_notifications",
+    type: "checkbox",
   },
 ];
 
